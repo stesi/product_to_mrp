@@ -2,14 +2,10 @@
 
 from odoo import models, fields, api
 
-# class product_to_mrp(models.Model):
-#     _name = 'product_to_mrp.product_to_mrp'
+class MrpBom(models.Model):
+    _inherit = 'mrp.bom'
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
+    product_tmpl_id = fields.Many2one(
+        'product.template', related='product_x_id.product_tmpl_id',store=True,readonly=False,required=False)
+    product_x_id = fields.Many2one(
+        'product.product', 'Product X Variant')
